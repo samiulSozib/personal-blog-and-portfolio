@@ -23,5 +23,10 @@ db.sequelize.sync({ force: false })
         console.log('sync database')
     })
 
+db.admins = require('./admins')(sequelize, DataTypes)
+db.categories = require('./categories')(sequelize, DataTypes)
+db.blogs = require('./blogs')(sequelize, DataTypes)
+db.projects = require('./projects')(sequelize, DataTypes)
+db.blog_cats = require('./blog_cats')(sequelize, DataTypes)
 
 module.exports = db
