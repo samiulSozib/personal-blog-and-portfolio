@@ -27,7 +27,7 @@
 }
 
 .dashBoardCard {
-    height: 200px;
+    height: 150px;
     border: 2px solid green;
 }
 
@@ -36,6 +36,7 @@
     font-size: 28px;
     color: black;
     font-weight: 600;
+    margin-bottom: 20px;
 }
 
 .dashBoardCardDesc {

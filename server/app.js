@@ -9,7 +9,7 @@ const setRoute = require('./route/route')
 const app = express()
 dotenv.config()
 
-app.use(cors({ credentials: true, origin: '' }))
+app.use(cors({ credentials: true, origin: 'http://localhost:3000' }))
 app.use(cookieParser())
 
 setMiddleware(app)

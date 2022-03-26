@@ -4,6 +4,7 @@ import LoginPage from './pages/LoginPage'
 import {BrowserRouter,Switch,Route} from 'react-router-dom'
 import DashBoard from './pages/DashBoard';
 import CreateBlogPage from './pages/CreateBlogPage';
+import CreateCategoryPage from './pages/CreateCategoryPage';
 
 
 function App() {
@@ -19,6 +20,9 @@ function App() {
           </Route>
           <Route exact path="/create-blog">
             <CreateBlogPage/>
+          </Route>
+          <Route exact path="/create-category">
+            <CreateCategoryPage/>
           </Route>
         </Switch>
       </BrowserRouter>

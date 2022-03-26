@@ -1,13 +1,25 @@
-const CategoriesRoute = require('./categoriesRoute')
-const AboutRoute = require('./aboutRoute')
+const CategoriesRouter = require('./categoriesRoute')
+const AboutRouter = require('./aboutRoute')
+const AuthRouter = require('./adminRoute')
+const TokenRouter = require('./token')
+
+
 
 const routes = [{
+        path: '/auth',
+        handler: AuthRouter
+    },
+    {
+        path: '/token',
+        handler: TokenRouter
+    },
+    {
         path: '/about',
-        handler: AboutRoute
+        handler: AboutRouter
     },
     {
         path: '/categories',
-        handler: CategoriesRoute
+        handler: CategoriesRouter
     },
     {
         path: '/',
