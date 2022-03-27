@@ -2,12 +2,17 @@ const CategoriesRouter = require('./categoriesRoute')
 const AboutRouter = require('./aboutRoute')
 const AuthRouter = require('./adminRoute')
 const TokenRouter = require('./token')
+const UploadRouter = require('./uploadRoute')
 
 
 
 const routes = [{
         path: '/auth',
         handler: AuthRouter
+    },
+    {
+        path: '/uploads',
+        handler: UploadRouter
     },
     {
         path: '/token',
