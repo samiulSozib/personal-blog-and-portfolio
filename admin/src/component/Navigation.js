@@ -23,7 +23,7 @@ const Navigation = () => {
     <Fragment>
         <Navbar className='navBack' expand="lg" fixed='top'>
         <Container>
-            <Navbar.Brand href="#" className='navTitle'>Dashboard</Navbar.Brand>
+            <Navbar.Brand href="/" className='navTitle'>Dashboard</Navbar.Brand>
             <Navbar.Toggle aria-controls="navbarScroll" />
             <Navbar.Collapse id="navbarScroll">
             <Nav

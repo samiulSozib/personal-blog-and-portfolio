@@ -16,7 +16,7 @@ const DashBoardCompenentt = () => {
             const response=await axios.get('http://localhost:2000/token')
             console.log(response)
             if(response.data.access_token){
-                history.push('/')
+                //history.push('/')
             }
         }catch(e){
             if(e.response){
@@ -43,10 +43,10 @@ const DashBoardCompenentt = () => {
                 <Col lg={4} md={6} sm={12}>
                     <Card className='mb-3 dashBoardCard'>
                         <Card.Body>
-                            <Card.Title className='dashBoardCardTitle'>Card Title</Card.Title>
+                            <Card.Title className='dashBoardCardTitle'>About</Card.Title>
                             
-                            <Card.Link href="#" className='dashBoardCardLink'>View All Blogs</Card.Link>
-                            <Link to="/create-blog" className='link'><Card.Link className='dashBoardCardLink'>Create Blogs</Card.Link></Link>
+                            <Card.Link href="#" className='dashBoardCardLink'>View About</Card.Link>
+                            <Link to="/create-about" className='link'><Card.Link className='dashBoardCardLink'>Create About</Card.Link></Link>
                         </Card.Body>
                     </Card>
                 </Col>
