@@ -3,6 +3,9 @@ module.exports = (sequelize, DataTypes) => {
         title: {
             type: DataTypes.STRING
         },
+        thumbnail_image: {
+            type: DataTypes.STRING
+        },
         features: {
             type: DataTypes.STRING
         },

@@ -63,23 +63,14 @@ const DashBoardCompenentt = () => {
                 <Col lg={4} md={6} sm={12}>
                     <Card className='mb-3 dashBoardCard'>
                         <Card.Body>
-                            <Card.Title className='dashBoardCardTitle'>Card Title</Card.Title>
+                            <Card.Title className='dashBoardCardTitle'>Project</Card.Title>
                             
-                            <Card.Link href="#" className='dashBoardCardLink'>View All Blogs</Card.Link>
-                            <Link to="/create-blog" className='link'><Card.Link className='dashBoardCardLink'>Create Blogs</Card.Link></Link>
+                            <Card.Link href="#" className='dashBoardCardLink'>View All Project</Card.Link>
+                            <Link to="/create-project" className='link'><Card.Link className='dashBoardCardLink'>Create Project</Card.Link></Link>
                         </Card.Body>
                     </Card>
                 </Col>
-                <Col lg={4} md={6} sm={12}>
-                    <Card className='mb-3 dashBoardCard'>
-                        <Card.Body>
-                            <Card.Title className='dashBoardCardTitle'>Card Title</Card.Title>
-                            
-                            <Card.Link href="#" className='dashBoardCardLink'>View All Blogs</Card.Link>
-                            <Link to="/create-blog" className='link'><Card.Link className='dashBoardCardLink'>Create Blogs</Card.Link></Link>
-                        </Card.Body>
-                    </Card>
-                </Col>
+                
             </Row>
         </Container>
     </Fragment>

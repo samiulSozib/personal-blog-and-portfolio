@@ -6,6 +6,7 @@ import DashBoard from './pages/DashBoard';
 import CreateBlogPage from './pages/CreateBlogPage';
 import CreateCategoryPage from './pages/CreateCategoryPage';
 import CreateAbout from './pages/CreateAbout';
+import CreateProjectPage from './pages/CreateProjectPage';
 
 
 function App() {
@@ -16,6 +17,9 @@ function App() {
           
           <Route exact path="/create-blog">
             <CreateBlogPage/>
+          </Route>
+          <Route exact path="/create-project">
+            <CreateProjectPage/>
           </Route>
           <Route exact path="/create-about">
             <CreateAbout/>

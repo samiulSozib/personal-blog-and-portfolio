@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
     const Blog_Cats = sequelize.define("blog_cats", {
-        project_id: {
+        blog_id: {
             type: DataTypes.INTEGER
         },
         category_id: {

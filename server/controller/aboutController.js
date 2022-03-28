@@ -5,7 +5,7 @@ const cloudinary = require('../utils/cloudinary')
 exports.createAbout = async(req, res, next) => {
     try {
 
-        let result = await cloudinary.uploader.upload(req.file.path)
+        let result = await cloudinary.uploader.upload(req.file.path, { folder: 'blog-portfolio' })
         console.log(result.secure_url)
         let { title, name, basic_description, facebook_link, github_link, linkedin_link, location, email_address, copy_right, description, education } = req.body
         let createdAbout = await About.create({
