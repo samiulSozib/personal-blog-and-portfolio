@@ -4,23 +4,28 @@ import { Editor } from '@tinymce/tinymce-react';
 import { useHistory } from 'react-router-dom'
 import axios from 'axios'
 import json_decode from 'jwt-decode'
+import { useLocation } from 'react-router-dom'
 
-const CreateProjectComponent = () => {
+const UpdateProjectComponent = () => {
+
+    const location=useLocation()
+    const id=location.state.id
+
+
     const [title,setTitle]=useState('')
     const [features,setFeatures]=useState('')
     const [developer,setDeveloper]=useState('')
     const [live_demo,setLive_demo]=useState('')
     const [githubLink,setGithubLink]=useState('')
     const [description,setDescription]=useState('')
-    const [thumbnail_image,setThumbnail_image]=useState(null)
     const [type,setType]=useState('')
     const history=useHistory()
     const [token,setToken]=useState('')
     const [expire,setExpire]=useState('')
 
-
     useEffect(() => {
         refreshToken();
+        singleProject()
       }, [])
     
       const refreshToken=async(e)=>{
@@ -57,12 +62,33 @@ const CreateProjectComponent = () => {
         return Promise.reject(error)
       })
 
-      const CreateProject=async(e)=>{
+      const singleProject=async()=>{
+        try{
+            const response=await axiosJWT.get('http://localhost:2000/projects/'+id,{
+                headers:{
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            console.log(response.data)
+            setTitle(response.data.title)
+            setFeatures(response.data.features)
+            setDeveloper(response.data.developer)
+            setLive_demo(response.data.live_demo)
+            setGithubLink(response.data.githubLink)
+            setDescription(response.data.description)
+            setType(response.data.type)
+        }catch(error){
+            if(error.response){
+                console.log(error)
+            }
+        }
+      }
+
+      const UpdateProject=async(e)=>{
         e.preventDefault();
         try{
             const formData=new FormData()
             formData.append('title',title)
-            formData.append('thumbnail_image',thumbnail_image)
             formData.append('features',features)
             formData.append('developer',developer)
             formData.append('live_demo',live_demo)
@@ -70,14 +96,21 @@ const CreateProjectComponent = () => {
             formData.append('description',description)
             formData.append('type',type)
 
-        await axiosJWT.post('http://localhost:2000/projects/create-project',formData,{
+        await axiosJWT.put('http://localhost:2000/projects/update-project/'+id,{
+          title:title,
+          features:features,
+          developer:developer,
+          live_demo:live_demo,
+          githubLink:githubLink,
+          description:description,
+          type:type
+        },{
         headers:{
-          'Content-type':'multipart/form-data',
           Authorization:`Bearer ${token}`
         }
       })
       .then((response)=>{
-        alert('Upload success')
+        alert('Update success')
       })
       .catch((error)=>{
         console.log(error)
@@ -95,20 +128,14 @@ const CreateProjectComponent = () => {
     <Fragment>
       <Container className='mt-5'>
         <Row>
-          <h1>Create Project</h1>
+          <h1>Update Project</h1>
           <Col>
-            <Form onSubmit={CreateProject}>
+            <Form onSubmit={UpdateProject}>
                   <Form.Group className="mb-3">
                     <Form.Label>Project Title</Form.Label>
                     <Form.Control type="text" placeholder="Enter Project Title" value={title} onChange={(e)=>setTitle(e.target.value)}/>
                   </Form.Group>
 
-                  <Form.Group controlId="formFile" className="mb-3">
-                    <Form.Label>
-                      Thumbnail Image
-                    </Form.Label>
-                    <Form.Control type="file" name="thumbnail_image" onChange={(e)=>setThumbnail_image(e.target.files[0])}/>
-                  </Form.Group>
                   
                   <Form.Group className="mb-3">
                     <Form.Label>Project Feature</Form.Label>
@@ -209,4 +236,4 @@ const CreateProjectComponent = () => {
   )
 }
 
-export default CreateProjectComponent
+export default UpdateProjectComponent

@@ -4,25 +4,28 @@ import { Editor } from '@tinymce/tinymce-react';
 import { useHistory } from 'react-router-dom'
 import axios from 'axios'
 import json_decode from 'jwt-decode'
+import { useLocation } from 'react-router-dom'
 
-const CreateProjectComponent = () => {
-    const [title,setTitle]=useState('')
-    const [features,setFeatures]=useState('')
-    const [developer,setDeveloper]=useState('')
-    const [live_demo,setLive_demo]=useState('')
-    const [githubLink,setGithubLink]=useState('')
+const BlogUpdateComponent = () => {
+    const location=useLocation()
+    const id=location.state.id
+
+
     const [description,setDescription]=useState('')
+    const [title,setTitle]=useState('')
     const [thumbnail_image,setThumbnail_image]=useState(null)
-    const [type,setType]=useState('')
+    const [author,setAuthor]=useState('')
     const history=useHistory()
     const [token,setToken]=useState('')
     const [expire,setExpire]=useState('')
-
+    
 
     useEffect(() => {
         refreshToken();
+        singleBlog()
       }, [])
-    
+
+
       const refreshToken=async(e)=>{
         try{
             const response=await axios.get('http://localhost:2000/token')
@@ -57,33 +60,41 @@ const CreateProjectComponent = () => {
         return Promise.reject(error)
       })
 
-      const CreateProject=async(e)=>{
+      const singleBlog=async()=>{
+        try{
+            const response=await axiosJWT.get('http://localhost:2000/blogs/'+id,{
+                headers:{
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            console.log(response.data)
+            setTitle(response.data.title)
+            //setThumbnail_image(response.data.thumbnail_image)
+            setDescription(response.data.description)
+            setAuthor(response.data.author)
+        }catch(error){
+            if(error.response){
+                console.log(error)
+            }
+        }
+      }
+
+      const UpdateBlog=async(e)=>{
         e.preventDefault();
         try{
-            const formData=new FormData()
-            formData.append('title',title)
-            formData.append('thumbnail_image',thumbnail_image)
-            formData.append('features',features)
-            formData.append('developer',developer)
-            formData.append('live_demo',live_demo)
-            formData.append('githubLink',githubLink)
-            formData.append('description',description)
-            formData.append('type',type)
-
-        await axiosJWT.post('http://localhost:2000/projects/create-project',formData,{
-        headers:{
-          'Content-type':'multipart/form-data',
-          Authorization:`Bearer ${token}`
-        }
-      })
-      .then((response)=>{
-        alert('Upload success')
-      })
-      .catch((error)=>{
-        console.log(error)
-      })
-      history.push('/')
-
+                await axiosJWT.put('http://localhost:2000/blogs/update-blog/'+id,{
+                title:title,
+                description:description,
+                author:author
+                },{
+                    headers:{
+                        Authorization: `Bearer ${token}`
+                    }
+                }).then((res)=>{
+                    if(res.status==200){
+                        history.push("/")
+                    }
+                })
         }catch(error){
             if(error.response){
                 console.log(error)
@@ -95,60 +106,35 @@ const CreateProjectComponent = () => {
     <Fragment>
       <Container className='mt-5'>
         <Row>
-          <h1>Create Project</h1>
+          <h1>Update Blog</h1>
           <Col>
-            <Form onSubmit={CreateProject}>
+            <Form onSubmit={UpdateBlog}>
                   <Form.Group className="mb-3">
-                    <Form.Label>Project Title</Form.Label>
-                    <Form.Control type="text" placeholder="Enter Project Title" value={title} onChange={(e)=>setTitle(e.target.value)}/>
+                    <Form.Label>Blog Title</Form.Label>
+                    <Form.Control type="text" placeholder="Enter Blog Title" value={title} onChange={(e)=>setTitle(e.target.value)}/>
                   </Form.Group>
+                  
+                  {/* <Form.Group className="mb-3">
+                    <Form.Label>Blog Category</Form.Label>
+                    <MultiSelect
+                      onChange={handleOnchange}
+                      options={options}
+                    />
+                  </Form.Group> */}
 
-                  <Form.Group controlId="formFile" className="mb-3">
+                
+                  
+                
+
+                {/* <Form.Group controlId="formFile" className="mb-3">
                     <Form.Label>
                       Thumbnail Image
                     </Form.Label>
                     <Form.Control type="file" name="thumbnail_image" onChange={(e)=>setThumbnail_image(e.target.files[0])}/>
-                  </Form.Group>
-                  
-                  <Form.Group className="mb-3">
-                    <Form.Label>Project Feature</Form.Label>
-                    <Editor
-                      textareaName='features'
-                      initialValue=""
-                      init={{
-                          height: 200,
-                          menubar: false,
-                          
-                          plugins:["advlist lists link autolink autosave code",
-                            'preview','searchreplace','wordcount','media table emoticons image imagetools'],
-                          toolbar: 'bold italic underline | alignleft alignright aligncenter alignjustify | bullist numlist outdent indent | link image media | forecolor backcolor emoticons | code preview',
-    
-                          content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
-                          
-                      }}
-                      value={features}
-                      onEditorChange={(newText) => setFeatures(newText)}
-                  ></Editor>
-                  </Form.Group>
-
-                  <Form.Group className="mb-3">
-                    <Form.Label>Developer</Form.Label>
-                    <Form.Control type="text" placeholder="Enter Project Developer" value={developer} onChange={(e)=>setDeveloper(e.target.value)}/>
-                  </Form.Group>
-
-                  <Form.Group className="mb-3">
-                    <Form.Label>Live Demo</Form.Label>
-                    <Form.Control type="text" placeholder="Enter Project Live Demo" value={live_demo} onChange={(e)=>setLive_demo(e.target.value)}/>
-                  </Form.Group>
-
-                  <Form.Group className="mb-3">
-                    <Form.Label>GitHub Link</Form.Label>
-                    <Form.Control type="text" placeholder="Enter Project Live Demo" value={githubLink} onChange={(e)=>setGithubLink(e.target.value)}/>
-                  </Form.Group>
-
+                  </Form.Group> */}
 
                 <Form.Group className="mb-3">
-                    <Form.Label>Project Description</Form.Label>
+                    <Form.Label>Blog Description</Form.Label>
                     <Editor
                       textareaName='description'
                       initialValue=""
@@ -192,10 +178,9 @@ const CreateProjectComponent = () => {
                   </Form.Group>
 
                   <Form.Group className="mb-3">
-                    <Form.Label>Project Type</Form.Label>
-                    <Form.Control type="text" placeholder="Enter Project Title" value={type} onChange={(e)=>setType(e.target.value)}/>
+                    <Form.Label>Author</Form.Label>
+                    <Form.Control type="text" placeholder="Enter Blog Author" value={author} onChange={(e)=>setAuthor(e.target.value)}/>
                   </Form.Group>
-
                 
 
                   <Button variant="primary" type="submit" className='mb-5'>
@@ -209,4 +194,4 @@ const CreateProjectComponent = () => {
   )
 }
 
-export default CreateProjectComponent
+export default BlogUpdateComponent

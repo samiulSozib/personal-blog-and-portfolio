@@ -24,3 +24,19 @@ exports.allCategories = async(req, res, next) => {
         console.log(e)
     }
 }
+
+// delete category
+
+exports.deleteCategory = async(req, res, next) => {
+    try {
+        const category_id = req.params.id
+        const deletedCategory = await Categories.destroy({
+            where: {
+                id: category_id
+            }
+        })
+        return res.json(deletedCategory)
+    } catch (e) {
+        console.log(e)
+    }
+}

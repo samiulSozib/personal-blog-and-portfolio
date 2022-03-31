@@ -30,4 +30,8 @@ db.projects = require('./projects')(sequelize, DataTypes)
 db.blog_cats = require('./blog_cats')(sequelize, DataTypes)
 db.abouts = require('./abouts')(sequelize, DataTypes)
 
+// database relation (blog and category many to many relation)
+db.blogs.belongsToMany(db.categories, { through: 'blog_cats', foreignKey: 'blog_id' })
+db.categories.belongsToMany(db.blogs, { through: 'blog_cats', foreignKey: 'category_id' })
+
 module.exports = db

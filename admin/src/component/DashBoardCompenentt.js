@@ -35,7 +35,7 @@ const DashBoardCompenentt = () => {
                     <Card className='mb-3 dashBoardCard'>
                         <Card.Body>
                             <Card.Title className='dashBoardCardTitle'>Category</Card.Title>
-                            <Card.Link href="#" className='dashBoardCardLink'>View All Category</Card.Link>
+                            <Card.Link href="/categories" className='dashBoardCardLink'>View All Category</Card.Link>
                             <Link to="/create-category" className='link'><Card.Link className='dashBoardCardLink'>Create Category</Card.Link></Link>
                         </Card.Body>
                     </Card>
@@ -45,7 +45,7 @@ const DashBoardCompenentt = () => {
                         <Card.Body>
                             <Card.Title className='dashBoardCardTitle'>About</Card.Title>
                             
-                            <Card.Link href="#" className='dashBoardCardLink'>View About</Card.Link>
+                            <Card.Link href="/about" className='dashBoardCardLink'>View About</Card.Link>
                             <Link to="/create-about" className='link'><Card.Link className='dashBoardCardLink'>Create About</Card.Link></Link>
                         </Card.Body>
                     </Card>
@@ -55,7 +55,7 @@ const DashBoardCompenentt = () => {
                         <Card.Body>
                             <Card.Title className='dashBoardCardTitle'>Blogs</Card.Title>
                             
-                            <Card.Link href="#" className='dashBoardCardLink'>View All Blogs</Card.Link>
+                            <Card.Link href="/blogs" className='dashBoardCardLink'>View All Blogs</Card.Link>
                             <Link to="/create-blog" className='link'><Card.Link className='dashBoardCardLink'>Create Blogs</Card.Link></Link>
                         </Card.Body>
                     </Card>
@@ -65,7 +65,7 @@ const DashBoardCompenentt = () => {
                         <Card.Body>
                             <Card.Title className='dashBoardCardTitle'>Project</Card.Title>
                             
-                            <Card.Link href="#" className='dashBoardCardLink'>View All Project</Card.Link>
+                            <Card.Link href="/projects" className='dashBoardCardLink'>View All Project</Card.Link>
                             <Link to="/create-project" className='link'><Card.Link className='dashBoardCardLink'>Create Project</Card.Link></Link>
                         </Card.Body>
                     </Card>

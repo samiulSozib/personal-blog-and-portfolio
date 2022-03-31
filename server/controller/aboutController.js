@@ -36,7 +36,7 @@ exports.createAbout = async(req, res, next) => {
 exports.getAbout = async(req, res, next) => {
     try {
         let about = await About.findAll()
-        return res.status(200).json(about)
+        return res.status(200).json(about[0])
     } catch (e) {
         console.log(e)
     }

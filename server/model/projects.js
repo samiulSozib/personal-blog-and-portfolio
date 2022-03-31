@@ -15,7 +15,13 @@ module.exports = (sequelize, DataTypes) => {
         live_demo: {
             type: DataTypes.STRING
         },
+        githubLink: {
+            type: DataTypes.STRING
+        },
         description: {
+            type: DataTypes.STRING
+        },
+        type: {
             type: DataTypes.STRING
         }
     }, {
