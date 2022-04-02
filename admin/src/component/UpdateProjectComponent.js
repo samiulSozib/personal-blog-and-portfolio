@@ -6,7 +6,7 @@ import axios from 'axios'
 import json_decode from 'jwt-decode'
 import { useLocation } from 'react-router-dom'
 
-const UpdateProjectComponent = () => {
+const UpdateProjectComponent = (props) => {
 
     const location=useLocation()
     const id=location.state.id
@@ -25,8 +25,8 @@ const UpdateProjectComponent = () => {
 
     useEffect(() => {
         refreshToken();
-        singleProject()
-      }, [])
+        singleProject();
+      })
     
       const refreshToken=async(e)=>{
         try{
@@ -141,7 +141,7 @@ const UpdateProjectComponent = () => {
                     <Form.Label>Project Feature</Form.Label>
                     <Editor
                       textareaName='features'
-                      initialValue=""
+                      initialValue={features}
                       init={{
                           height: 200,
                           menubar: false,
@@ -178,7 +178,7 @@ const UpdateProjectComponent = () => {
                     <Form.Label>Project Description</Form.Label>
                     <Editor
                       textareaName='description'
-                      initialValue=""
+                      initialValue={description}
                       init={{
                           height: 350,
                           menubar: false,

@@ -41,3 +41,31 @@ exports.getAbout = async(req, res, next) => {
         console.log(e)
     }
 }
+
+// update about 
+exports.updateAbout = async(req, res, next) => {
+    let about_id = req.params.id
+    let { title, name, basic_description, facebook_link, github_link, linkedin_link, location, email_address, copy_right, description, education } = req.body
+    try {
+        let updated_about = await About.update({
+            title,
+            name,
+            basic_description,
+            facebook_link,
+            github_link,
+            linkedin_link,
+            location,
+            email_address,
+            copy_right,
+            description,
+            education
+        }, {
+            where: {
+                id: about_id
+            }
+        })
+        return res.json(updated_about)
+    } catch (e) {
+        console.log(e)
+    }
+}

@@ -6,14 +6,14 @@ import axios from 'axios'
 import json_decode from 'jwt-decode'
 import { useLocation } from 'react-router-dom'
 
-const BlogUpdateComponent = () => {
+const BlogUpdateComponent = (props) => {
     const location=useLocation()
     const id=location.state.id
 
 
     const [description,setDescription]=useState('')
     const [title,setTitle]=useState('')
-    const [thumbnail_image,setThumbnail_image]=useState(null)
+   
     const [author,setAuthor]=useState('')
     const history=useHistory()
     const [token,setToken]=useState('')
@@ -22,8 +22,8 @@ const BlogUpdateComponent = () => {
 
     useEffect(() => {
         refreshToken();
-        singleBlog()
-      }, [])
+        singleBlog();
+      })
 
 
       const refreshToken=async(e)=>{
@@ -91,7 +91,7 @@ const BlogUpdateComponent = () => {
                         Authorization: `Bearer ${token}`
                     }
                 }).then((res)=>{
-                    if(res.status==200){
+                    if(res.status===200){
                         history.push("/")
                     }
                 })
@@ -137,7 +137,7 @@ const BlogUpdateComponent = () => {
                     <Form.Label>Blog Description</Form.Label>
                     <Editor
                       textareaName='description'
-                      initialValue=""
+                      initialValue={description}
                       init={{
                           height: 350,
                           menubar: false,

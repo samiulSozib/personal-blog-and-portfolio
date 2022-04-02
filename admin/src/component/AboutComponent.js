@@ -18,6 +18,7 @@ const AboutComponent = () => {
   const [copy_right,setCopy_right]=useState('')
   const [description,setDescription]=useState('')
   const [education,setEducation]=useState('')
+  const [id,setId]=useState('')
 
   const history=useHistory()
   const [token,setToken]=useState('')
@@ -69,6 +70,7 @@ const AboutComponent = () => {
                 }
             })
             console.log(response.data)
+            setId(response.data.id)
             setTitle(response.data.title)
             setName(response.data.name)
             setBasic_description(response.data.basic_description)
@@ -111,14 +113,26 @@ const AboutComponent = () => {
       //   }
       // }
 
-      await axiosJWT.post('http://localhost:2000/about/create',formData,{
+      await axiosJWT.put('http://localhost:2000/about/update/'+id,{
+        title:title,
+        name:name,
+        basic_description:basic_description,
+        facebook_link:facebook_link,
+        github_link:github_link,
+        linkedin_link:linkedin_link,
+        location:location,
+        email_address:email_address,
+        copy_right:copy_right,
+        description:description,
+        education:education
+      },{
         headers:{
-          'Content-type':'multipart/form-data',
+          
           Authorization:`Bearer ${token}`
         }
       })
       .then((response)=>{
-        alert('Upload success')
+        alert('Update success')
       })
       .catch((error)=>{
         console.log(error)
